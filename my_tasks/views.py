@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post
 
 # from django.http import HttpResponse
@@ -21,18 +22,18 @@ class CustomLoginView(LoginView):
         return reverse_lazy('tasks')
 
 
-class TaskList(ListView):
+class TaskList(LoginRequiredMixin, ListView):
     model = Post
     context_object_name = 'tasks'
 
 
-class TaskDetail(DetailView):
+class TaskDetail(LoginRequiredMixin, DetailView):
     model = Post
     context_object_name = 'task'
     template_name = 'my_tasks/task.html'
 
 
-class TaskCreate(CreateView):
+class TaskCreate(LoginRequiredMixin, CreateView):
     model = Post
     fields = '__all__'
     # Also look at adding form class as per CodeInstitute Hello Django
@@ -40,13 +41,13 @@ class TaskCreate(CreateView):
     # 2013-06-26 00:14:26.260524 Example Date Time String
 
 
-class TaskUpdate(UpdateView):
+class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Post
     fields = '__all__'
     success_url = reverse_lazy('tasks')
 
 
-class TaskDelete(DeleteView):
+class TaskDelete(LoginRequiredMixin, DeleteView):
     model = Post
     context_object_name = 'task'
     success_url = reverse_lazy('tasks')
