@@ -22,6 +22,12 @@ class Post(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     priority = models.IntegerField(choices=PRIO, default=1)
 
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['done']
+
 # The on_delete argument emulates the behaviour of an SQL database when
 # an author is deleted. As we have set this to models.CASCADE: if a user
 # is deleted, then any posts they have authored will also be deleted.
