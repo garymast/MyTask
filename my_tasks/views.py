@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
@@ -37,6 +37,11 @@ class RegisterPage(FormView):
             login(self.request, author)
         return super(RegisterPage, self).form_valid(form)
 
+    def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('tasks')
+        return super(RegisterPage, self).get(*args, **kwargs)
+
 
 class TaskList(LoginRequiredMixin, ListView):
     model = Post
@@ -48,9 +53,7 @@ class TaskList(LoginRequiredMixin, ListView):
     #     context['count'] = context['tasks'].filter(done=False).count()
 
     #     return context
-
-
-# Look at creating user groups in the future
+    # Look at creating user groups in the future
 
 
 class TaskDetail(LoginRequiredMixin, DetailView):
