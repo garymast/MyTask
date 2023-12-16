@@ -15,10 +15,10 @@ class Post(models.Model):
     )
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
-    status = models.IntegerField(choices=STATUS, default=0)
+    # status = models.IntegerField(choices=STATUS, default=0)
     due_date = models.DateTimeField()
     done = models.BooleanField(default=False)
-    excerpt = models.TextField(blank=True)
+    # excerpt = models.TextField(blank=True)
     updated_on = models.DateTimeField(auto_now=True)
     priority = models.IntegerField(choices=PRIO, default=1)
 
