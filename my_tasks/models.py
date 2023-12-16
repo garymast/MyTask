@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 STATUS = ((0, "Draft"), (1, "Published"))
+PRIO = ((0, "Low"), (1, "Medium"), (2, "High"))
 
 # Create your models here.
 
@@ -19,6 +20,7 @@ class Post(models.Model):
     done = models.BooleanField(default=False)
     excerpt = models.TextField(blank=True)
     updated_on = models.DateTimeField(auto_now=True)
+    priority = models.IntegerField(choices=PRIO, default=1)
 
 # The on_delete argument emulates the behaviour of an SQL database when
 # an author is deleted. As we have set this to models.CASCADE: if a user
