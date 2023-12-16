@@ -27,3 +27,4 @@ class TaskCreate(CreateView):
     fields = '__all__'
     # Also look at adding form class as per CodeInstitute Hello Django
     success_url = reverse_lazy('tasks')
+    # 2013-06-26 00:14:26.260524 Example Date Time String
