@@ -1,3 +1,6 @@
+{% extends 'my_tasks/main.html' %}
+{% block content %}
+
 <h1>Login</h1>
 
 <form method="POST"> 
@@ -8,3 +11,5 @@
 </form>
 
 <p>Don't have an account? <a href="{% url 'signup' %}">Register</a></p>
+
+{% endblock content %}
