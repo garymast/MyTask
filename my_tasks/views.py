@@ -47,12 +47,20 @@ class TaskList(LoginRequiredMixin, ListView):
     model = Post
     context_object_name = 'tasks'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['tasks'] = context['tasks'].filter(author=self.request.user)
-    #     context['count'] = context['tasks'].filter(done=False).count()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tasks'] = context['tasks'].filter(author=self.request.user)
+        context['count'] = context['tasks'].filter(done=False).count()
 
-    #     return context
+        search_input = self.request.GET.get('search-area') or ''
+        if search_input:
+            context['tasks'] = context['tasks'].filter(
+                title__istartswith=search_input
+            )
+
+        context['search_input'] = search_input
+
+        return context
     # Look at creating user groups in the future
 
 
@@ -70,7 +78,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
     # 2013-06-26 00:14:26.260524 Example Date Time String
     
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        form.instance.author = self.request.user
         return super(TaskCreate, self).form_valid(form)
 
 
