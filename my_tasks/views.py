@@ -49,7 +49,7 @@ class TaskList(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tasks'] = context['tasks'].filter(author=self.request.user)
+        # context['tasks'] = context['tasks'].filter(author=self.request.user)
         context['count'] = context['tasks'].filter(done=False).count()
 
         search_input = self.request.GET.get('search-area') or ''
@@ -73,6 +73,7 @@ class TaskDetail(LoginRequiredMixin, DetailView):
 class TaskCreate(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content', 'done', 'priority', 'due_date']
+    
     # Also look at adding form class as per CodeInstitute Hello Django
     success_url = reverse_lazy('tasks')
     # 2013-06-26 00:14:26.260524 Example Date Time String
