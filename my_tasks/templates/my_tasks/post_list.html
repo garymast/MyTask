@@ -21,13 +21,9 @@
 <div class="pad-top"><a href="{% url 'task-create' %}"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></a></div>
 </div>
 
-
 <form method="GET">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search-area" aria-label="Search" value="{{search_input}}">
-
 </form>
-
-
 
 <div class="task-items-wrapper">
 {% for task in tasks %}
@@ -53,28 +49,6 @@
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
             content.</p>
     </div>
-
-    <!-- <div class="card-body">
-        {% if task.done %}
-
-            <div class="card-title">
-                <div class="task-done-icon">
-                    <i><s><a href="{% url 'task-update' task.id %}">{{task}}</a></s></i>
-                </div>
-            </div>
-            <a href="{% url 'task-delete' task.id %}" class="btn btn-secondary btn-danger active btn-sm" role="button" aria-pressed="true">Delete</a>
-        {% else %}
-
-            <div class="card-title d-flex justify-content-between">
-                <div class="task-not-done-icon">
-                    <i><a href="{% url 'task-update' task.id %}">{{task}}</a></i>
-                </div>
-                <a href="{% url 'task-delete' task.id %}" class="btn btn-secondary btn-danger active btn-sm" role="button"
-                aria-pressed="true">Delete</a>
-
-            </div> -->
-
-        {% endif %}
 
     </div>
 {% empty %}
