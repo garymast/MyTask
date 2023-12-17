@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
@@ -93,3 +93,10 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
     model = Post
     context_object_name = 'task'
     success_url = reverse_lazy('tasks')
+
+
+def toggle_item(request, item_id):
+    item = get_object_or_404(Post, id=item_id)
+    item.done = not item.done
+    item.save()
+    return redirect('tasks')

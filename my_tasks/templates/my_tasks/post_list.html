@@ -35,9 +35,15 @@
         <div class="card-title d-flex justify-content-between align-middle">
         <div class="d-flex justify-content-start">
         {% if task.done %}
-        <div class="task-done-icon"></div><div><h5><i><s><a href="{% url 'task-update' task.id %}">{{task}}</a></s></i></h5></div>
+        <a href="/toggle/{{ task.id }}">
+        <div class="task-done-icon"></div>
+        </a>
+        <div><h5><i><s><a href="{% url 'task-update' task.id %}">{{task}}</a></s></i></h5></div>
         {% else %}
-        <div class="task-not-done-icon"></div><div><h5><i><a href="{% url 'task-update' task.id %}">{{task}}</a></i></h5></div>
+        <a href="/toggle/{{ task.id }}">
+        <div class="task-not-done-icon"></div>
+        </a>
+        <div><h5><i><a href="{% url 'task-update' task.id %}">{{task}}</a></i></h5></div>
         {% endif %}
         </div>
         <div>
@@ -46,8 +52,7 @@
         </div>
         </div>
         
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
+        <p class="card-text">{{task.content}}</p>
     </div>
 
     </div>
