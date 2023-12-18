@@ -57,3 +57,9 @@ textarea {
     width: 90%;
     display: block;
 }
+
+.form-control {
+    min-width: 0;
+    width: 200px !important;
+    border-color: black;
+}

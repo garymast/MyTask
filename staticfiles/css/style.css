@@ -1,4 +1,65 @@
 body {
-    background-color: grey;
+    /* background-color: rgb(243, 193, 193); */
 }
 
+.task-items-wrapper {
+    margin-top: .375rem;
+}
+
+.nbar a {
+    color: black;
+}
+
+.nbar {
+    /* background-color: rgb(163, 91, 19); */
+}
+
+.pad-top {
+padding-top:5px;
+}
+
+.task-done-icon {
+    height: 20px;
+    width: 20px;
+    background-color: #69c069;
+    border-radius: 50%;
+    margin-right:10px;
+    margin-top: 2px;
+}
+        
+.task-not-done-icon {
+    height: 20px;
+    width: 20px;
+    background-color: rgb(218, 218, 218);
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: 2px;
+}
+
+#add-link {
+    color: #EB796F;
+    text-decoration: none;
+    font-size: 42px;
+    text-shadow: 1px 1px #81413b;
+}
+
+label {
+    padding-top: 10px !important;
+    display: block;
+}
+
+input[type=text],
+input[type=password],
+textarea {
+    border: 1px solid #757575;
+    border-radius: 5px;
+    padding: 10px;
+    width: 90%;
+    display: block;
+}
+
+.form-control {
+    min-width: 0;
+    width: 200px !important;
+    border-color: black;
+}

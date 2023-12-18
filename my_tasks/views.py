@@ -10,6 +10,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
 from .models import Post
+from django import forms
+from .forms import ItemForm
 
 # from django.http import HttpResponse
 
@@ -70,23 +72,49 @@ class TaskDetail(LoginRequiredMixin, DetailView):
     template_name = 'my_tasks/task.html'
 
 
-class TaskCreate(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = ['title', 'content', 'done', 'priority', 'due_date']
-    
-    # Also look at adding form class as per CodeInstitute Hello Django
-    success_url = reverse_lazy('tasks')
-    # 2013-06-26 00:14:26.260524 Example Date Time String
-    
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super(TaskCreate, self).form_valid(form)
+# class TaskCreate(LoginRequiredMixin, CreateView):
+#     model = Post
+#     fields = ['title', 'content', 'done', 'priority', 'due_date']
+
+#     success_url = reverse_lazy('tasks')
+
+#     def form_valid(self, form):
+#         form.instance.author = self.request.user
+#         return super(TaskCreate, self).form_valid(form)
 
 
-class TaskUpdate(LoginRequiredMixin, UpdateView):
-    model = Post
-    fields = ['title', 'content', 'done', 'priority', 'due_date']
-    success_url = reverse_lazy('tasks')
+def taskxxx(request):
+    if request.method == 'POST':
+        form = ItemForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('tasks')
+    form = ItemForm()
+    context = {
+        'form': form
+    }
+
+    return render(request, 'my_tasks/post_form.html', context)
+
+
+# class TaskUpdate(LoginRequiredMixin, UpdateView):
+#     model = Post
+#     fields = ['title', 'content', 'done', 'priority', 'due_date']
+#     success_url = reverse_lazy('tasks')
+
+
+def edit_item(request, item_id):
+    item = get_object_or_404(Post, id=item_id)
+    if request.method == 'POST':
+        form = ItemForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect('tasks')
+    form = ItemForm(instance=item)
+    context = {
+        'form': form
+    }
+    return render(request, 'my_tasks/post_form.html', context)
 
 
 class TaskDelete(LoginRequiredMixin, DeleteView):
