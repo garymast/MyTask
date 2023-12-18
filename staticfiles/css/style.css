@@ -63,3 +63,10 @@ textarea {
     width: 200px !important;
     border-color: black;
 }
+
+input[type=checkbox],
+input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+    width: 50px !important;
+}
