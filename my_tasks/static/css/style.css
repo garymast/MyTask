@@ -70,3 +70,14 @@ input[type=radio] {
     padding: 0;
     width: 50px !important;
 }
+
+/* .alert {
+    display: none;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+
+    .fa {
+        margin-right: .5em;
+    }
+} */

@@ -13,6 +13,8 @@ from .models import Post
 from django import forms
 from .forms import ItemForm
 
+from django.contrib import messages
+
 # from django.http import HttpResponse
 
 # Create your views here.
@@ -88,12 +90,12 @@ def taskxxx(request):
         form = ItemForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "To Do created successfully")
             return redirect('tasks')
     form = ItemForm()
     context = {
         'form': form
     }
-
     return render(request, 'my_tasks/post_form.html', context)
 
 
@@ -108,7 +110,8 @@ def edit_item(request, item_id):
     if request.method == 'POST':
         form = ItemForm(request.POST, instance=item)
         if form.is_valid():
-            form.save()
+            form.save() 
+            messages.success(request, "To Do updated successfully")
             return redirect('tasks')
     form = ItemForm(instance=item)
     context = {
