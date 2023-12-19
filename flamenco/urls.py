@@ -17,21 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 # from my_tasks import views as index_views
-from my_tasks.views import TaskList, TaskDetail, TaskDelete, CustomLoginView, RegisterPage, toggle_item
+from my_tasks.views import TaskList, TaskDelete, CustomLoginView, RegisterPage, toggle_item
 from django.contrib.auth.views import LogoutView
 from my_tasks import views
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('signin/', CustomLoginView.as_view(), name='signin'),
     path('signout/', LogoutView.as_view(next_page='signin'), name='signout'),
     path('signup/', RegisterPage.as_view(), name='signup'),
     path('', TaskList.as_view(), name='tasks'),
-    path('task/<int:pk>/', TaskDetail.as_view(), name='task'),
-    path('create-task/', views.taskxxx, name="task-create"),
-    # path('create-task/', TaskCreate.as_view(), name='task-create'),
-    path('toggle/<item_id>', views.toggle_item, name="toggle"),
-    path('update-task<item_id>/', views.edit_item, name="task-update"),
-    # path('update-task<int:pk>/', TaskUpdate.as_view(), name='task-update'),
+    path('create-task/', login_required(views.task_create), name="task-create"),
+    path('toggle/<item_id>', login_required(views.toggle_item), name="toggle"),
+    path('update-task<item_id>/', login_required(views.edit_item), name="task-update"),
     path('delete-task<int:pk>/', TaskDelete.as_view(), name='task-delete'),
     path('admin/', admin.site.urls),
 ]

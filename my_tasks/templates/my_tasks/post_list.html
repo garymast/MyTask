@@ -1,65 +1,101 @@
-{% extends 'my_tasks/main.html' %}
-{% block content %}
+{% extends 'my_tasks/main.html' %} {% block content %}
 
-<div class ="navbar navbar-light bg-light nbar" >
-    <div>
-        <h4>Hello {{request.user|title}}</h4>
-        <h6>You have <i>{{count}}</i> incomplete task{{count|pluralize:"s"}}</h6>
-    </div>
-{% if request.user.is_authenticated %}
-<a href="{% url 'signout' %}">Logout</a>
+<div class="navbar navbar-light bg-light nbar">
+  <div>
+    <h4>Hello {{request.user|title}}</h4>
+    <h6>You have <i>{{count}}</i> incomplete task{{count|pluralize:"s"}}</h6>
+  </div>
+  {% if request.user.is_authenticated %}
+  <a href="{% url 'signout' %}">Logout</a>
 
-{% else %}
-<a href="{% url 'signin' %}">Login</a>
-{% endif %}
+  {% else %}
+  <a href="{% url 'signin' %}">Login</a>
+  {% endif %}
 </div>
 
-
-<hr/>
+<hr />
 <div class="d-flex justify-content-between align-middle">
-<h3>To Do List</h3>
-<div class="pad-top"><a href="{% url 'task-create' %}"><i class="fa fa-plus fa-lg" aria-hidden="true"></i></a></div>
+  <h3>To Do List</h3>
+  <div class="pad-top">
+    <a href="{% url 'task-create' %}"
+      ><i class="fa fa-plus fa-lg" aria-hidden="true"></i
+    ></a>
+  </div>
 </div>
 
 <form method="GET">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" name="search-area" aria-label="Search" value="{{search_input}}">
+  <input
+    class="form-control mr-sm-2"
+    type="search"
+    placeholder="Search"
+    name="search-area"
+    aria-label="Search"
+    value="{{search_input}}"
+  />
 </form>
 
 <div class="task-items-wrapper">
-{% for task in tasks %}
+  {% for task in tasks %}
 
-<div class="card bg-light mb-3">
-    <div class="card-header">Due: {{task.due_date}}</div>
-    <div class="card-body">
-        
-        <div class="card-title d-flex justify-content-between align-middle">
-        <div class="d-flex justify-content-start">
-        {% if task.done %}
-        <a href="/toggle/{{ task.id }}">
-        <div class="task-done-icon"></div>
-        </a>
-        <div><h5><i><s><a href="{% url 'task-update' task.id %}">{{task}}</a></s></i></h5></div>
+  <div class="card bg-light mb-3">
+    <div class="card-header d-flex justify-content-between">
+      <div>Due: {{task.due_date}}</div>
+      <div>
+        {% if task.priority == 2 %}
+            <div><i class="fa fa-exclamation-triangle fa-lg"  style="color: red;" aria-hidden="true"></i></div>
+        {% elif task.priority == 1 %}
+            <div><i class="fa fa-exclamation-triangle fa-lg" style="color: orange;" aria-hidden="true"></i></div>
         {% else %}
-        <a href="/toggle/{{ task.id }}">
-        <div class="task-not-done-icon"></div>
-        </a>
-        <div><h5><i><a href="{% url 'task-update' task.id %}">{{task}}</a></i></h5></div>
+            <div><i class="fa fa-exclamation-triangle fa-lg" style="color: greenyellow;" aria-hidden="true"></i></div>
         {% endif %}
+
+
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-title d-flex justify-content-between align-middle">
+        <div class="d-flex justify-content-start">
+          {% if task.done %}
+          <a href="/toggle/{{ task.id }}">
+            <div class="task-done-icon"></div>
+          </a>
+          <div>
+            <h5>
+              <i
+                ><s
+                  ><a href="{% url 'task-update' task.id %}">{{task}}</a></s
+                ></i
+              >
+            </h5>
+          </div>
+          {% else %}
+          <a href="/toggle/{{ task.id }}">
+            <div class="task-not-done-icon"></div>
+          </a>
+          <div>
+            <h5>
+              <i><a href="{% url 'task-update' task.id %}">{{task}}</a></i>
+            </h5>
+          </div>
+          {% endif %}
         </div>
         <div>
-        <a href="{% url 'task-delete' task.id %}" class="btn btn-secondary btn-danger active btn-sm" role="button"
-                aria-pressed="true">Delete</a>
+          <a
+            href="{% url 'task-delete' task.id %}"
+            class="btn btn-secondary btn-danger active btn-sm"
+            role="button"
+            aria-pressed="true"
+            >Delete</a
+          >
         </div>
-        </div>
-        
-        <p class="card-text">{{task.content}}</p>
-    </div>
+      </div>
 
+      <p class="card-text">{{task.content}}</p>
     </div>
-{% empty %}
-<h3>No items in list</h3>
-{% endfor %}
+  </div>
+  {% empty %}
+  <h3>No items in list</h3>
+  {% endfor %}
 </div>
-
 
 {% endblock content %}

@@ -17,37 +17,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- {% include 'my_tasks/includes/messages.html' %} -->
-
-        <!-- {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-            <div class="container-fluid p-0">
-            <div {% if message.tags %} class="{{ message.tags }} alert alert-dismissible shadow fade show" {% endif %}>{{ message }}</div>
-            </div>
-            {% endfor %}
-        </div>
-        {% endif %} -->
-
-        {% for message in messages %}
-        <div class="alert {{ message.tags }} alert-dismissible shadow fade show" role="alert">
-            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            {{ message | safe }}
-        </div>
-        {% endfor %}
-
-        <!-- {% for message in messages %}
-        <div class="container-fluid p-0">
-            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="True">&times;</span>
-                </button>
-                {{ message }}
-            </div>
-        </div>
-        {% endfor %} -->
+        {% include 'my_tasks/includes/messages.html' %}
 
         {% block content %}
 

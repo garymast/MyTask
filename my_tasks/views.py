@@ -24,9 +24,13 @@ class CustomLoginView(LoginView):
     template_name = 'my_tasks/signin.html'
     fields = '__all__'
     redirect_authenticated_user = True
-
+    
     def get_success_url(self):
         return reverse_lazy('tasks')
+
+    def form_valid(self, form):
+        messages.success(self.request, "Login Successful")
+        return super().form_valid(form)
 
 
 class RegisterPage(FormView):
@@ -36,6 +40,7 @@ class RegisterPage(FormView):
     success_url = reverse_lazy('tasks')
 
     def form_valid(self, form):
+        messages.success(self.request, "Registration Successful")
         author = form.save()
         if author is not None:
             login(self.request, author)
@@ -68,29 +73,12 @@ class TaskList(LoginRequiredMixin, ListView):
     # Look at creating user groups in the future
 
 
-class TaskDetail(LoginRequiredMixin, DetailView):
-    model = Post
-    context_object_name = 'task'
-    template_name = 'my_tasks/task.html'
-
-
-# class TaskCreate(LoginRequiredMixin, CreateView):
-#     model = Post
-#     fields = ['title', 'content', 'done', 'priority', 'due_date']
-
-#     success_url = reverse_lazy('tasks')
-
-#     def form_valid(self, form):
-#         form.instance.author = self.request.user
-#         return super(TaskCreate, self).form_valid(form)
-
-
-def taskxxx(request):
+def task_create(request):
     if request.method == 'POST':
         form = ItemForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "To Do created successfully")
+            messages.success(request, "Task created successfully")
             return redirect('tasks')
     form = ItemForm()
     context = {
@@ -99,19 +87,13 @@ def taskxxx(request):
     return render(request, 'my_tasks/post_form.html', context)
 
 
-# class TaskUpdate(LoginRequiredMixin, UpdateView):
-#     model = Post
-#     fields = ['title', 'content', 'done', 'priority', 'due_date']
-#     success_url = reverse_lazy('tasks')
-
-
 def edit_item(request, item_id):
     item = get_object_or_404(Post, id=item_id)
     if request.method == 'POST':
         form = ItemForm(request.POST, instance=item)
         if form.is_valid():
             form.save() 
-            messages.success(request, "To Do updated successfully")
+            messages.success(request, "Task updated successfully")
             return redirect('tasks')
     form = ItemForm(instance=item)
     context = {
@@ -124,10 +106,19 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
     model = Post
     context_object_name = 'task'
     success_url = reverse_lazy('tasks')
+    
+    def form_valid(self, form):
+        messages.success(self.request, "Task deleted successfully")
+        return super().form_valid(form)
 
 
 def toggle_item(request, item_id):
     item = get_object_or_404(Post, id=item_id)
     item.done = not item.done
     item.save()
+    if item.done:
+        messages.success(request, "Task marked as Complete")
+    else:
+        messages.success(request, "Task marked as Not Done")
+
     return redirect('tasks')
