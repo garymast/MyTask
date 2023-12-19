@@ -7,6 +7,10 @@
     color: black;
 }
 
+.task-link a {
+    color: black;
+}
+
 .pad-top {
 padding-top:5px;
 }
