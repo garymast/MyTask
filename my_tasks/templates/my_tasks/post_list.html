@@ -38,7 +38,7 @@
 
   <div class="card bg-light mb-3">
     <div class="card-header d-flex justify-content-between">
-      <div class="task-link" ><a href="{% url 'task-update' task.id %}" aria-label="Task: {{task.id}}">Due: {{task.due_date}}</a></div>
+      <div class="task-link" ><a href="{% url 'task-update' task.id %}">Due: {{task.due_date}}</a></div>
       <div>
         {% if task.priority == 2 %}
             <div><i class="fa fa-exclamation-triangle fa-lg"  style="color: red;" aria-hidden="true"></i></div>
@@ -54,14 +54,14 @@
       <div class="card-title d-flex justify-content-between align-middle">
         <div class="d-flex justify-content-start">
           {% if task.done %}
-          <a href="/toggle/{{ task.id }}" aria-label="Toggle task">
+          <a href="/toggle/{{ task.id }}">
             <div class="task-done-icon"></div>
           </a>
           <div>
             <h5>
               <i
                 ><s
-                  ><a href="{% url 'task-update' task.id %}"  aria-label="Task: {{task.id}}">{{task}}</a></s
+                  ><a href="{% url 'task-update' task.id %}">{{task}}</a></s
                 ></i
               >
             </h5>

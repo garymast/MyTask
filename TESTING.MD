@@ -119,9 +119,9 @@ I also tested each individual link (examples below) with the only issue being th
 
 <br>
 
-The Lighthouse Chrome DevTools Performance test showed a % performance and % accessibility score.
+The Lighthouse Chrome DevTools Performance test showed a 100% performance and 86% accessibility score.
 
-<img src="" width="70%"><br><br>
+<img src="my_tasks/readme/images/lighthouse.png" width="70%"><br><br>
 
  </details>
 
