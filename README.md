@@ -1,4 +1,4 @@
-# My Tasks
+# OurTasks
 
 You can view the live site at [OurTasks](https://django-mytasks-f5f89d77e5e0.herokuapp.com/).
 
@@ -207,6 +207,8 @@ Once users register a file is created that stores their username and password pl
 <details>
 
 When designing the structure of the site I kept my focus on the need to create a mobile first web-based application that has both a user interface (front end) and server-side logic database (back end) stored in a central location. My focus influenced my prototypes which are shown as wireframes below:
+
+<img src="my_tasks/readme/images/user-home-wireframe.png" width="80%"><br><br>
 
 ***Home/Index Page***
 
