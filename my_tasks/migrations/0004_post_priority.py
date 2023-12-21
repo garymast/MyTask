@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('my_tasks', '0003_post_updated_on'),
+        ("my_tasks", "0003_post_updated_on"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='priority',
-            field=models.IntegerField(choices=[(0, 'Low'), (1, 'Medium'), (2, 'High')], default=1),
+            model_name="post",
+            name="priority",
+            field=models.IntegerField(
+                choices=[(0, "Low"), (1, "Medium"), (2, "High")], default=1
+            ),
         ),
     ]

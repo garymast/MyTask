@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('my_tasks', '0010_remove_post_slug'),
+        ("my_tasks", "0010_remove_post_slug"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
-            name='due_date',
+            model_name="post",
+            name="due_date",
             field=models.DateField(),
         ),
     ]

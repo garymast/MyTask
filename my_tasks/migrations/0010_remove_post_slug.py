@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('my_tasks', '0009_alter_post_slug'),
+        ("my_tasks", "0009_alter_post_slug"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='post',
-            name='slug',
+            model_name="post",
+            name="slug",
         ),
     ]

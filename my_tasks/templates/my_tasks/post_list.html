@@ -1,9 +1,8 @@
 {% extends 'my_tasks/main.html' %} {% block content %}
-
 <div class="navbar navbar-light bg-light nbar">
   <div>
     <h4>Hello {{request.user|title}}</h4>
-    <h6>You have <i>{{count}}</i> incomplete task{{count|pluralize:"s"}}</h6>
+    <p>You have <i>{{count}}</i> incomplete task{{count|pluralize:"s"}}</p>
   </div>
   {% if request.user.is_authenticated %}
   <a href="{% url 'signout' %}">Logout</a>
@@ -13,7 +12,7 @@
   {% endif %}
 </div>
 
-<hr />
+<hr>
 <div class="d-flex justify-content-between align-middle">
   <h3>To Do List</h3>
   <div class="pad-top">
@@ -31,7 +30,7 @@
     name="search-area"
     aria-label="Search"
     value="{{search_input}}"
-  />
+  >
 </form>
 
 <div class="task-items-wrapper">
@@ -39,7 +38,7 @@
 
   <div class="card bg-light mb-3">
     <div class="card-header d-flex justify-content-between">
-      <div class="task-link"><a href="{% url 'task-update' task.id %}">Due: {{task.due_date}}</a></div>
+      <div class="task-link" ><a href="{% url 'task-update' task.id %}" aria-label="Task: {{task.id}}">Due: {{task.due_date}}</a></div>
       <div>
         {% if task.priority == 2 %}
             <div><i class="fa fa-exclamation-triangle fa-lg"  style="color: red;" aria-hidden="true"></i></div>
@@ -48,22 +47,21 @@
         {% else %}
             <div><i class="fa fa-exclamation-triangle fa-lg" style="color: greenyellow;" aria-hidden="true"></i></div>
         {% endif %}
-
-
+        
       </div>
     </div>
     <div class="card-body">
       <div class="card-title d-flex justify-content-between align-middle">
         <div class="d-flex justify-content-start">
           {% if task.done %}
-          <a href="/toggle/{{ task.id }}">
+          <a href="/toggle/{{ task.id }}" aria-label="Toggle task">
             <div class="task-done-icon"></div>
           </a>
           <div>
             <h5>
               <i
                 ><s
-                  ><a href="{% url 'task-update' task.id %}">{{task}}</a></s
+                  ><a href="{% url 'task-update' task.id %}"  aria-label="Task: {{task.id}}">{{task}}</a></s
                 ></i
               >
             </h5>
@@ -82,6 +80,7 @@
         <div>
           <a
             href="{% url 'task-delete' task.id %}"
+            aria-label="Task: {{task.id}}"
             class="btn btn-secondary btn-danger active btn-sm"
             role="button"
             aria-pressed="true"
