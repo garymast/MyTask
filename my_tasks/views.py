@@ -56,10 +56,15 @@ class TaskList(LoginRequiredMixin, ListView):
     model = Post
     context_object_name = "tasks"
 
+    
+    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['tasks'] = Post.objects.filter(author=self.request.user)
         # context['tasks'] = context['tasks'].filter(author=self.request.user)
         context["count"] = context["tasks"].filter(done=False).count()
+        
 
         search_input = self.request.GET.get("search-area") or ""
         if search_input:
@@ -68,6 +73,9 @@ class TaskList(LoginRequiredMixin, ListView):
         context["search_input"] = search_input
 
         return context
+
+
+    context_object_name = 'tasks'
 
     # Look at creating user groups in the future
 
@@ -104,6 +112,7 @@ class TaskDelete(LoginRequiredMixin, DeleteView):
     model = Post
     context_object_name = "task"
     success_url = reverse_lazy("tasks")
+
 
     def form_valid(self, form):
         messages.success(self.request, "Task deleted successfully")

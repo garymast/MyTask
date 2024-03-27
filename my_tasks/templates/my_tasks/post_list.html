@@ -38,7 +38,7 @@
 
   <div class="card bg-light mb-3">
     <div class="card-header d-flex justify-content-between">
-      <div class="task-link" ><a href="{% url 'task-update' task.id %}">Due: {{task.due_date}}</a></div>
+      <div class="task-link" ><a href="{% url 'task-update' task.id %}">Due: {{task.due_date}} {{task.author}}</a></div>
       <div>
         {% if task.priority == 2 %}
             <div><i class="fa fa-exclamation-triangle fa-lg"  style="color: red;" aria-hidden="true"></i></div>

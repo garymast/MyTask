@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.contrib import messages
+from django_currentuser.middleware import (
+    get_current_user, get_current_authenticated_user)
 
 STATUS = ((0, "Draft"), (1, "Published"))
 PRIO = ((0, "Low"), (1, "Medium"), (2, "High"))
@@ -13,10 +15,10 @@ PRIO = ((0, "Low"), (1, "Medium"), (2, "High"))
 #         if due_date < timezone.now().date():
 #             raise ValidationError("Date cannot be in the past")
             
-
+from django_currentuser.db.models import CurrentUserField
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    author = CurrentUserField()
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     # due_date = models.DateField(null=True, blank=True, default=None, validators=[validate_date])
