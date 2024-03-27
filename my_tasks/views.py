@@ -79,6 +79,9 @@ def task_create(request):
             form.save()
             messages.success(request, "Task created successfully")
             return redirect("tasks")
+        else:
+            messages.warning(request, "Due date cannot be earlier than today.")
+
     form = ItemForm()
     context = {"form": form}
     return render(request, "my_tasks/post_form.html", context)
