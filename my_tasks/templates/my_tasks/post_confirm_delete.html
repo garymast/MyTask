@@ -1,5 +1,8 @@
 {% extends 'my_tasks/main.html' %}
 {% block content %}
+{{request.user|title}}
+{{task.author}}
+
 <div class="navbar navbar-light bg-light nbar">
     <div class="other-nav">
         <a href="{% url 'tasks' %}"><i class="fa fa-home fa-lg home-button" aria-hidden="true"></i></a>
@@ -13,8 +16,12 @@
 <hr>
 <form method="POST">
   {% csrf_token %}
+  {% if request.user|title|lower == task.author|lower %}
   <p>Are you sure you want to delete this task? "{{task}}"</p>
   <input type="submit" value="Delete" class="btn btn-secondary btn-danger active btn-sm" role="button"/>
+  {% else %}
+  <p>Contact User "{{task.author}}" to delete this task</p>
+  {% endif %}
 </form>
 
 {% endblock content %}

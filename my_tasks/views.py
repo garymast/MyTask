@@ -55,13 +55,10 @@ class RegisterPage(FormView):
 class TaskList(LoginRequiredMixin, ListView):
     model = Post
     context_object_name = "tasks"
-
-    
     
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tasks'] = Post.objects.filter(author=self.request.user)
         # context['tasks'] = context['tasks'].filter(author=self.request.user)
         context["count"] = context["tasks"].filter(done=False).count()
         
@@ -74,8 +71,6 @@ class TaskList(LoginRequiredMixin, ListView):
 
         return context
 
-
-    context_object_name = 'tasks'
 
     # Look at creating user groups in the future
 
@@ -104,7 +99,7 @@ def edit_item(request, item_id):
             messages.success(request, "Task updated successfully")
             return redirect("tasks")
     form = ItemForm(instance=item)
-    context = {"form": form}
+    context = {"form": form, "task": item}
     return render(request, "my_tasks/post_form.html", context)
 
 

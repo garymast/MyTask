@@ -2,7 +2,7 @@
 <div class="navbar navbar-light bg-light nbar">
   <div>
     <h4>Hello {{request.user|title}}</h4>
-    <p>You have <i>{{count}}</i> incomplete task{{count|pluralize:"s"}}</p>
+    <p>There are <i>{{count}}</i> incomplete task{{count|pluralize:"s"}}</p>
   </div>
   {% if request.user.is_authenticated %}
   <a href="{% url 'signout' %}">Logout</a>
@@ -38,7 +38,7 @@
 
   <div class="card bg-light mb-3">
     <div class="card-header d-flex justify-content-between">
-      <div class="task-link" ><a href="{% url 'task-update' task.id %}">Due: {{task.due_date}} {{task.author}}</a></div>
+      <div class="task-link" ><a href="{% url 'task-update' task.id %}">Due: &nbsp;{{task.due_date}} <br> Created By: &nbsp;{{task.author}}</a></div>
       <div>
         {% if task.priority == 2 %}
             <div><i class="fa fa-exclamation-triangle fa-lg"  style="color: red;" aria-hidden="true"></i></div>
@@ -77,6 +77,7 @@
           </div>
           {% endif %}
         </div>
+        {% if request.user|title|lower == task.author|lower %}
         <div>
           <a
             href="{% url 'task-delete' task.id %}"
@@ -87,6 +88,8 @@
             >Delete</a
           >
         </div>
+        {% endif %}
+
       </div>
 
       <p class="card-text">{{task.content}}</p>
