@@ -1,5 +1,6 @@
 {% extends 'my_tasks/main.html' %}
 {% block content %}
+
 <div class="navbar navbar-light bg-light nbar">
     <div class="other-nav">
         <a href="{% url 'tasks' %}"><i class="fa fa-home fa-lg home-button" aria-hidden="true"></i></a>
@@ -12,16 +13,11 @@
 </div>
 <hr>
 
-{% if request.user|title|lower == task.author|lower %}
 <h3>Task Form</h3>
 
 <form method="POST">
   {% csrf_token %} {{form.as_p}}
   <input class="btn btn-success" type="submit" value="Submit">
 </form>
-
-{% else %}
-  <p>Contact User "{{task.author}}" to edit this task</p>
-{% endif %}
 
 {% endblock content %}
